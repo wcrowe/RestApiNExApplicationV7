@@ -1,0 +1,24 @@
+[
+    {
+        "ClientId": "clientAPI1",
+        "AllowedGrantTypes": [ "client_credentials" ],
+        "ClientSecrets": [
+            {
+                "Value": "RestApiNExApplication-secret",
+                "Description": "RestApiNExApplication secret"
+            }
+        ],
+        "AllowedScopes": [ "RestApiNExApplication" ]
+    },
+    {
+        "ClientId": "RestApiNExApplicationClient",
+        "AllowedGrantTypes": [ "password" ],
+        "ClientSecrets": [
+            {
+                "Value": "RestApiNExApplication-secret",
+                "Description": "RestApiNExApplication secret"
+            }
+        ],
+        "AllowedScopes": [ "RestApiNExApplication" ]
+    }
+]

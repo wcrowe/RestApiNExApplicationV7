@@ -1,0 +1,24 @@
+[
+    {
+        "ClientId": "clientAPI1",
+        "AllowedGrantTypes": [ "client_credentials" ],
+        "ClientSecrets": [
+            {
+                "Value": "RestApiNDxApiV6-secret",
+                "Description": "RestApiNDxApiV6 secret"
+            }
+        ],
+        "AllowedScopes": [ "RestApiNDxApiV6" ]
+    },
+    {
+        "ClientId": "RestApiNDxApiV6Client",
+        "AllowedGrantTypes": [ "password" ],
+        "ClientSecrets": [
+            {
+                "Value": "RestApiNDxApiV6-secret",
+                "Description": "RestApiNDxApiV6 secret"
+            }
+        ],
+        "AllowedScopes": [ "RestApiNDxApiV6" ]
+    }
+]

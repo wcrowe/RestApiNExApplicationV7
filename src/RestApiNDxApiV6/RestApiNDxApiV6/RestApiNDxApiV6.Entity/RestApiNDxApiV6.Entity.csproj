@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
+    <PackageReference Include="FluentMigrator.Runner" Version="3.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.123" developmentDependency="true" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.78" developmentDependency="true" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="1_t4EntityHelpersGenerate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>1_t4EntityHelpersGenerate.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="1_t4EntityHelpersGenerate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>1_t4EntityHelpersGenerate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="t4_AddMigration.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>t4_AddMigration.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="t4_AddMigration.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>t4_AddMigration.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>
+

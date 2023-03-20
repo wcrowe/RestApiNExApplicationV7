@@ -1,0 +1,32 @@
+﻿@namespace RestApiNExApplication.BlazorServerTestApp.Shared
+@using Blazored.Toast.Configuration
+@inherits LayoutComponentBase
+
+<PageTitle>RestApiNExApplication.BlazorServerTestApp</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <a href="https://www.anasoft.net/" target="_blank">About</a>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+    <BlazoredToasts 
+                Position="ToastPosition.BottomRight"
+				IconType="IconType.FontAwesome"
+				SuccessClass="success-toast-override"			
+                ShowProgressBar="true"
+                RemoveToastsOnNavigation ="false"
+                SuccessIcon="fa fa-thumbs-up"
+                WarningIcon="fa fa-warning"
+				ErrorIcon="fa fa-bug"
+                InfoIcon="fa fa-info-circle"
+                Timeout="2"/>

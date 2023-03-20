@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApplication.Api", "RestApiNExApplication\RestApiNExApplication.Api\RestApiNExApplication.Api.csproj", "{8F21C916-FFCC-40DF-81A6-A5F57CD9954F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApplication.BlazorServerTestApp", "RestApiNExApplication\RestApiNExApplication.BlazorServerTestApp\RestApiNExApplication.BlazorServerTestApp.csproj", "{A731455D-B028-48EB-8E3B-2705D50AE55D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApplication.Domain", "RestApiNExApplication\RestApiNExApplication.Domain\RestApiNExApplication.Domain.csproj", "{F45FB20A-EF38-4604-A429-8E9D432D089A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApplication.Entity", "RestApiNExApplication\RestApiNExApplication.Entity\RestApiNExApplication.Entity.csproj", "{6535031F-D3DF-4DB7-A3FD-A1B363FC2BE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApplication.Test", "RestApiNExApplication\RestApiNExApplication.Test\RestApiNExApplication.Test.csproj", "{7CD9363A-F90D-4FA7-98DA-E39AB66DE9C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "RestApiNExApplication\IdentityServer\IdentityServer.csproj", "{9A6F5394-C215-4EE0-9E5E-1A5D8BA4AAB7}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "RestApiNExApplication\docker-compose\docker-compose.dcproj", "{E2F15196-66D4-4D55-B369-FF1A482ECCD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F21C916-FFCC-40DF-81A6-A5F57CD9954F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F21C916-FFCC-40DF-81A6-A5F57CD9954F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F21C916-FFCC-40DF-81A6-A5F57CD9954F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F21C916-FFCC-40DF-81A6-A5F57CD9954F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A731455D-B028-48EB-8E3B-2705D50AE55D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A731455D-B028-48EB-8E3B-2705D50AE55D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A731455D-B028-48EB-8E3B-2705D50AE55D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A731455D-B028-48EB-8E3B-2705D50AE55D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F45FB20A-EF38-4604-A429-8E9D432D089A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F45FB20A-EF38-4604-A429-8E9D432D089A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F45FB20A-EF38-4604-A429-8E9D432D089A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F45FB20A-EF38-4604-A429-8E9D432D089A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6535031F-D3DF-4DB7-A3FD-A1B363FC2BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6535031F-D3DF-4DB7-A3FD-A1B363FC2BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6535031F-D3DF-4DB7-A3FD-A1B363FC2BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6535031F-D3DF-4DB7-A3FD-A1B363FC2BE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD9363A-F90D-4FA7-98DA-E39AB66DE9C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD9363A-F90D-4FA7-98DA-E39AB66DE9C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD9363A-F90D-4FA7-98DA-E39AB66DE9C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD9363A-F90D-4FA7-98DA-E39AB66DE9C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A6F5394-C215-4EE0-9E5E-1A5D8BA4AAB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A6F5394-C215-4EE0-9E5E-1A5D8BA4AAB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A6F5394-C215-4EE0-9E5E-1A5D8BA4AAB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A6F5394-C215-4EE0-9E5E-1A5D8BA4AAB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABF83F05-9EFF-462B-B9CD-E4B0C377F75C}
+	EndGlobalSection
+EndGlobal

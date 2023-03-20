@@ -1,0 +1,227 @@
+﻿@page "/users"
+@inject IJSRuntime JS
+@inject IToastService toastService
+
+@using RestApiNExApplication.BlazorServerTestApp.Data
+@using RestApiNExApplication.BlazorServerTestApp.Services
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration configuration
+@inject RestApiService RestApi
+
+<h1>Users</h1>
+
+<p>This component demonstrates managing Users data with RestApiNExApplication service.</p>
+@if (RestApi.IsContainerized())
+{
+    <p>Running in <b>Docker container</b>.</p>
+}
+
+@if (Recs == null)
+{
+    <p><em>Loading...</em><br /><img src="/images/giphy.gif"></p>
+}
+else
+{
+
+    <div class="form-inline">
+        <label class="sr-only" for="filter-name">Filter</label>
+        <input type="text" class="form-control mb-2 mr-sm-2"
+           @bind="nameFilter"
+           placeholder="Filter by username" />
+        <button type="button" class="btn btn-primary mr-sm-2 mb-2"
+            @onclick="Filter">
+            Filter
+        </button>
+        <button type="button" class="btn btn-danger mb-2"
+            @onclick="Clear">
+            Clear
+        </button>
+    </div>
+
+    <Pagination TotalPagesQuantity="totalPageQuantity" CurrentPage="currentPage" Radius="1"
+            SelectedPage="SelectedPage"></Pagination>
+
+    <button class="btn btn-outline-primary" id="add" @onclick="@(e => Add(e))"><ion-icon size="large" name="add-circle-outline"></ion-icon></button>
+
+    <TableTemplate Items="Recs" TItem="User">
+        <TableHeader>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>IsActive</th>
+            <th>IsAdminRole</th>
+            @*<th>Roles</th>*@
+            <th>Password</th>
+            <th>AccountId</th>
+        </TableHeader>
+        <RowTemplate>
+            <td onclick="setEdit('span-FirstName-@context.Id','FirstName-@context.Id')"><span id="span-FirstName-@context.Id" class="viewdata">@context.FirstName</span><input id="FirstName-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.FirstName" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-LastName-@context.Id','LastName-@context.Id')"><span id="span-LastName-@context.Id" class="viewdata">@context.LastName</span><input id="LastName-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.LastName" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-UserName-@context.Id','UserName-@context.Id')"><span id="span-UserName-@context.Id" class="viewdata">@context.UserName</span><input id="UserName-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.UserName" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-Email-@context.Id','Email-@context.Id')"><span id="span-Email-@context.Id" class="viewdata" onclick="setEdit(this,'Email-@context.Id')">@context.Email</span><input id="Email-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Email" @bind-value:event="oninput" style="display:none" class="editdata" /></td>   
+            <td onclick="setEdit('span-IsActive-@context.Id','IsActive-@context.Id')"><span id="span-IsActive-@context.Id" class="viewdata">@context.IsActive</span><input type="checkbox" id="IsActive-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.IsActive" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-IsAdminRole-@context.Id','IsAdminRole-@context.Id')"><span id="span-IsAdminRole-@context.Id" class="viewdata">@context.IsAdminRole</span><input type="checkbox" id="IsAdminRole-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.IsAdminRole" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+@*            <td onclick="setEdit('span-Roles-@context.Id','Roles-@context.Id')"><span id="span-Roles-@context.Id" class="viewdata" onclick="setEdit(this,'Roles-@context.Id')">@context.Roles.ToString()</span><input id="Roles-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Roles" @bind-value:event="oninput" style="display:none" class="editdata" /></td> *@  
+            <td onclick="setEdit('span-Password-@context.Id','Password-@context.Id')"><span id="span-Password-@context.Id" class="viewdata" onclick="setEdit(this,'Password-@context.Id')">@context.Password</span><input id="Password-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Password" @bind-value:event="oninput" style="display:none" class="editdata" /></td>   
+            <td onclick="setEdit('span-AccountId-@context.Id','AccountId-@context.Id')"><span id="span-AccountId-@context.Id" class="viewdata" onclick="setEdit(this,'AccountId-@context.Id')">@context.AccountId</span><input id="AccountId-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.AccountId" @bind-value:event="oninput" style="display:none" class="editdata" /></td>   
+            <td nowarp>
+                <button class="btn btn-outline-danger delatedata" id="delete-@context.Id" @onclick="@(e => Delete(e, context.Id))"><ion-icon name="trash-bin-outline"></ion-icon></button>
+                <button class="btn btn-outline-primary savedata" id="save-@context.Id" @onclick="@(e => Save(e, context.Id))" style="display: none"><ion-icon name="save-outline"></ion-icon></button>
+              @* <button class="btn btn-outline-info canceldata" id="cancel-@context.Id" @onclick="@(e => Cancel(e, context.Id))" style="display: none"><ion-icon name="arrow-undo-outline"></ion-icon></button>*@
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+
+}
+
+@code {
+    private List<User> Recs;
+
+    private int totalPageQuantity;
+    private int currentPage = 1;
+    private string nameFilter = string.Empty;
+    private int quantityPerPage = 5;
+    //int.TryParse(quantityPerPage, @Configuration["Pagination:QuantityPerPage"]);
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        currentPage = page;
+        await LoadUsers(page);
+    }
+
+    private async Task Filter()
+    {
+        currentPage = 1;
+        await LoadUsers();
+    }
+
+    private async Task Clear()
+    {
+        nameFilter = string.Empty;
+        currentPage = 1;
+        await LoadUsers();
+    }
+
+    async Task LoadUsers(int page = 1, int quantityPerPage = 5)
+    {
+        int.TryParse(configuration["Pagination:QuantityPerPage"], out quantityPerPage);
+        if (quantityPerPage == 0) quantityPerPage = 5;
+
+        Data.Pagination pg = new Data.Pagination { Page = page, QuantityPerPage = quantityPerPage };
+
+        if (!String.IsNullOrEmpty(nameFilter))
+            Recs = (await RestApi.GetUsersAsync(pg)).Where(rec => rec.UserName == nameFilter).ToList();
+        else
+            Recs = (await RestApi.GetUsersAsync(pg)).ToList();
+        totalPageQuantity = RestApi.AccountPagesQuantity;
+    }
+
+    private async Task Delete(MouseEventArgs e, int id)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            bool saved = await RestApi.DeleteUserAsync(id);
+            Recs = (await RestApi.GetUsersAsync()).ToList();    
+            //
+            if (saved)
+            {
+                
+                toastService.ShowSuccess("Deleted successfully");
+            }
+            else
+            {
+                toastService.ShowError("Error happened when deleting");
+            }    
+            await LoadUsers();
+            await InvokeAsync(StateHasChanged);        
+        }
+    }
+
+    private async Task Add(MouseEventArgs e)
+    {
+        User rec = new User
+        {
+            AccountId= 1,
+            UserName = "UserName",
+            Password = "password1",
+            Email = "email",
+            FirstName = "FirstName",
+            LastName = " LastName"
+        };
+        bool saved = await RestApi.AddUserAsync(rec);
+        Recs = (await RestApi.GetUsersAsync()).ToList();
+        //
+        if (saved)
+        {
+        	toastService.ShowSuccess("Added successfully");
+        }
+        else
+        {
+            toastService.ShowError("Error happened when adding");
+        }
+            await LoadUsers();
+        await InvokeAsync(StateHasChanged);
+
+    }
+
+    private async void Save(MouseEventArgs e, int id)
+    {
+        User rec = Recs.Find(r => r.Id == id);
+        bool saved = await RestApi.PutUserAsync(id,rec);
+        Recs = (await RestApi.GetUsersAsync()).ToList();
+
+        //call js to hide Save button
+        try
+        {
+            if (saved)
+            {
+                await JS.InvokeAsync<string>("hideSaveCancel", id);
+                toastService.ShowSuccess("Updated successfully");
+            }
+            else
+            {
+                toastService.ShowError("Error happened when saving");
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (JSException ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    private async void Cancel(MouseEventArgs e, int id)
+    {
+        User rec = (await RestApi.GetUserByIdAsync(id));
+        for (int i = 0; i < Recs.Count; i++)
+        {
+            if (Recs[i].Id == id)
+            {
+                Recs[i] = rec;
+            }
+        }
+        Recs = Recs;
+        try
+        {
+            await JS.InvokeAsync<string>("hideSaveCancel", id);
+        }
+        catch (JSException ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+
+}

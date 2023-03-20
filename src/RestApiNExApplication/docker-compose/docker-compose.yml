@@ -1,0 +1,88 @@
+version: "3.9"
+
+services:
+  db:
+    container_name: cnt-db
+    #image: "microsoft/mssql-server-windows-developer:2017-latest"  #windows image :( not supported by MS anymore from 2021 July
+    image: mcr.microsoft.com/mssql/server:2022-latest  #linux image
+    #user: "SA"
+    networks:
+      - restapinex_backend_network
+    ports:
+      - 1433:1433 # standard port host:container or container
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: password1234 # username is 'sa'
+      MSSQL_DATA_DIR: /var/opt/mssql/data
+      tag: debug
+    restart: unless-stopped
+    volumes:
+      #- "data-volume:/var/opt/mssql/data:rw"
+      - sqlsystem:/var/opt/mssql/
+      - sqldata:/var/opt/db/data
+      - sqllog:/var/opt/db/log
+      - sqlbackup:/var/opt/db/backup
+  api:
+    container_name: cnt-restapi
+    image: img-restapi
+    networks:
+      - restapinex_backend_network
+      - restapinex_frontend_network
+    ports:
+      - 44341:44341
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    build:
+      context: .
+      dockerfile: RestApiNExApplication\\RestApiNExApplication.Api\\Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      RestApiNExApplicationDB:  Server=db,1433;Database=RestApiNExApplication;Encrypt=False;TrustServerCertificate=True;User Id=sa;Password=password1234 
+      tag: debug
+    depends_on: 
+      - db
+    volumes:
+      - data-volume:/var/opt/RestApiNExApplicationapi
+  web:
+    container_name: cnt-blazorweb
+    image: img-blazorweb
+    networks:
+      - restapinex_frontend_network
+    ports:
+      - 8080:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      tag: debug
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    build:
+      context: .
+      dockerfile: RestApiNExApplication\\RestApiNExApplication.BlazorServerTestApp\\Dockerfile
+    depends_on: 
+      - api
+    volumes:
+      - data-volume:/var/opt/RestApiNExApplicationblazorservertestapp
+
+volumes:
+  data-volume: 
+  sqlsystem:
+  sqldata:
+  sqllog:
+  sqlbackup:
+
+    # Mount init.sql file to automatically run 
+    # and create tables for us.
+    # everything in docker-entrypoint-initdb.d folder
+    # is executed as soon as container is up and running.
+    #volumes:
+    #  - "/usercode/db/init.sql:/docker-entrypoint-initdb.d/init.sql"
+
+networks:
+  restapinex_frontend_network:
+  restapinex_backend_network:

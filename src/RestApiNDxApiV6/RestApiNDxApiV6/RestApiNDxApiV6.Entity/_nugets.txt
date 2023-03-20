@@ -1,0 +1,33 @@
+﻿//NOTE: all packages with proper versions will be installed automatically by VS 
+
+https://www.nuget.org/packages/Microsoft.Extensions.Configuration/
+PM> Install-Package Microsoft.Extensions.Configuration  
+
+
+https://www.newtonsoft.com/json
+PM> Install-Package Microsoft.AspNetCore.Mvc.NewtonsoftJson 
+
+
+
+http://dapper-tutorial.net/dapper
+PM> Install-Package Dapper  
+
+https://www.nuget.org/packages/Dapper.Contrib/
+PM> Install-Package Dapper.Contrib 
+
+https://fluentmigrator.github.io/articles/intro.html
+https://www.nuget.org/packages/FluentMigrator/
+PM> Install-Package FluentMigrator  
+
+NOTE: not implemented 
+https://www.nuget.org/packages/Dapper.FluentMap/
+PM> Install-Package Dapper.FluentMap  
+
+
+
+*********************************************************
+
+CodeGeneratorUtility.bat
+Open CodeGeneratorUtility.bat and update VS version
+To run all T4s right click on CodeGeneratorUtility.bat file and Open With...choose PowerShell. Add it if it is not in the list.
+
