@@ -1,0 +1,55 @@
+﻿@page "/"
+@inject IToastService toastService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Blazor srv app</PageTitle>
+
+<h2>Hello, the blazor app is running!</h2>
+<table border=0><tr><td>
+<img width="150" src="/images/RestApiN1.png" />
+</td><td>
+<h4>This blazor srv app is connected to RestApiNEx. Click on Entities menu item to connect to the entities.</h4>
+@if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
+{
+                <h5>Running in <b>Docker container</b>.</h5>
+}
+</td></tr></table>
+
+<SurveyPrompt Title="How is RestApi extension working for you?" />
+
+<br /><br />
+<hr />
+<h4>Blazor Toast Demo</h4>
+<button class="btn btn-info" id="InfoButton" @onclick="@(() => toastService.ShowInfo("I'm an INFO message"))">Info Toast</button>
+<button class="btn btn-success" id="SuccessButton" @onclick="@(() => toastService.ShowSuccess("I'm a SUCCESS message with a custom heading", "Congratulations!"))">Success Toast</button>
+<button class="btn btn-warning" @onclick="@(() => toastService.ShowWarning("I'm a WARNING message"))">Warning Toast</button>
+<button class="btn btn-danger" @onclick="@(() => toastService.ShowError("I'm an ERROR message"))">Error Toast</button>
+<button class="btn btn-primary" @onclick="ClearAll">Clear All Toasts</button>
+<br /><br />
+<button class="btn btn-info" @onclick="@OnShowHtml">Info Toast with HTML</button>
+<button class="btn btn-info" @onclick="@(() => toastService.ShowInfo("Click to refresh the page", "Click me!", () => { NavigationManager.NavigateTo("/", true); }))">
+    Info Toast with custom action on click
+</button>
+<hr />
+
+@code
+{
+
+    private void OnShowHtml()
+    {
+        RenderFragment message =@<text>I'm an <em>INFO</em> message with some <strong>bold</strong> text</text>;
+        toastService.ShowToast(ToastLevel.Info, message);
+    }
+
+    private void ClearAll()
+        => toastService.ClearAll();
+
+    private void ClearWarnings()
+        => toastService.ClearToasts(ToastLevel.Warning);
+
+    private void ClearInfos()
+        => toastService.ClearInfoToasts();
+
+    private void ClearCustom()
+        => toastService.ClearCustomToasts();
+}

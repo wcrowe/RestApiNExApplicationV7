@@ -1,0 +1,223 @@
+﻿@page "/accounts"
+@inject IJSRuntime JS
+@inject IToastService toastService
+
+@using RestApiNExApiV6.BlazorServerTestApp.Data
+@using RestApiNExApiV6.BlazorServerTestApp.Services
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration configuration
+@inject RestApiService RestApi
+
+<h1>Accounts</h1>
+
+<p>This component demonstrates managing Accounts data with RestApiNExApiV6 service.</p>
+@if (RestApi.IsContainerized())
+{
+    <p>Running in <b>Docker container</b>.</p>
+}
+
+@if (Recs == null)
+{
+    <p><em>Loading...</em><br/><img src="/images/giphy.gif"></p>
+}
+else
+{
+
+    <div class="form-inline">
+        <label class="sr-only" for="filter-name">Filter</label>
+        <input type="text" class="form-control mb-2 mr-sm-2"
+           @bind="nameFilter"
+           placeholder="Filter by name" />
+        <button type="button" class="btn btn-primary mr-sm-2 mb-2"
+            @onclick="Filter">
+            Filter
+        </button>
+        <button type="button" class="btn btn-danger mb-2"
+            @onclick="Clear">
+            Clear
+        </button>
+    </div>
+
+    <Pagination TotalPagesQuantity="totalPageQuantity" CurrentPage="currentPage" Radius="1"
+            SelectedPage="SelectedPage"></Pagination>
+
+    <button class="btn btn-outline-primary" id="add" @onclick="@(e => Add(e))"><ion-icon size="large" name="add-circle-outline"></ion-icon></button>
+
+    <TableTemplate Items="Recs" TItem="Account">
+        <TableHeader>
+            
+            <th>Name</th>
+            <th>Email</th>
+            <th>Description</th>
+            <th>IsActive</th>
+            <th>IsTrial</th>
+            <th>SetActive</th>
+        </TableHeader>
+        <RowTemplate>
+
+            <td onclick="setEdit('span-Name-@context.Id','Name-@context.Id')"><span id="span-Name-@context.Id" class="viewdata">@context.Name</span><input id="Name-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Name" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-Email-@context.Id','Email-@context.Id')"><span id="span-Email-@context.Id" class="viewdata" onclick="setEdit(this,'Email-@context.Id')">@context.Email</span><input id="Email-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Email" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-Description-@context.Id','Description-@context.Id')"><span id="span-Description-@context.Id" class="viewdata">@context.Description</span><input id="Description-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.Description" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-IsActive-@context.Id','IsActive-@context.Id')"><span id="span-IsActive-@context.Id" class="viewdata">@context.IsActive</span><input type="checkbox" id="IsActive-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.IsActive" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-IsTrial-@context.Id','IsTrial-@context.Id')"><span id="span-IsTrial-@context.Id" class="viewdata">@context.IsTrial</span><input type="checkbox" id="IsTrial-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.IsTrial" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td onclick="setEdit('span-SetActive-@context.Id','SetActive-@context.Id')"><span id="span-SetActive-@context.Id" class="viewdata">@context.SetActive</span><input id="SetActive-@context.Id" onchange="showSaveCancel(@context.Id)" @bind-value="@context.SetActive" @bind-value:event="oninput" style="display:none" class="editdata" /></td>
+            <td nowarp>
+                <button class="btn btn-outline-danger delatedata" id="delete-@context.Id" @onclick="@(e => Delete(e, context.Id))"><ion-icon name="trash-bin-outline"></ion-icon></button>
+                <button class="btn btn-outline-primary savedata" id="save-@context.Id" @onclick="@(e => Save(e, context.Id))" style="display: none"><ion-icon name="save-outline"></ion-icon></button>
+                @*<button class="btn btn-outline-info canceldata" id="cancel-@context.Id" @onclick="@(e => Cancel(e, context.Id))" style="display: none"><ion-icon name="arrow-undo-outline"></ion-icon></button>*@
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+
+
+}
+
+
+@code {
+    private List<Account> Recs;
+
+    private int totalPageQuantity;
+    private int currentPage = 1;
+    private string nameFilter = string.Empty;
+    private int quantityPerPage = 5;
+    //int.TryParse(quantityPerPage, @Configuration["Pagination:QuantityPerPage"]);
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAccounts();
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        currentPage = page;
+        await LoadAccounts(page);
+    }
+
+    private async Task Filter()
+    {
+        currentPage = 1;
+        await LoadAccounts();
+    }
+
+    private async Task Clear()
+    {
+        nameFilter = string.Empty;
+        currentPage = 1;
+        await LoadAccounts();
+    }
+
+    async Task LoadAccounts(int page = 1, int quantityPerPage = 5)
+    {
+
+        int.TryParse(configuration["Pagination:QuantityPerPage"], out quantityPerPage);
+        if (quantityPerPage == 0) quantityPerPage = 5;
+
+        Data.Pagination pg = new Data.Pagination { Page = page, QuantityPerPage = quantityPerPage };
+
+        if (!String.IsNullOrEmpty(nameFilter))
+            Recs = (await RestApi.GetAccountsAsync(pg)).Where(rec => rec.Name == nameFilter).ToList();
+        else
+            Recs = (await RestApi.GetAccountsAsync(pg)).ToList();
+        totalPageQuantity = RestApi.AccountPagesQuantity;
+    }
+
+
+    private async Task Delete(MouseEventArgs e, int id)
+    {
+        bool confirmed = await JS.InvokeAsync<bool>("confirm", "Are you sure?");
+        if (confirmed)
+        {
+            bool saved = await RestApi.DeleteAccountAsync(id);
+            Recs = (await RestApi.GetAccountsAsync()).ToList();    
+            if (saved)
+            {
+                toastService.ShowSuccess("Deleted successfully", "SUCCESS");
+            }
+            else
+            {
+                toastService.ShowError("Error happened when deleting", "ERROR");
+            }
+            await LoadAccounts();
+            await InvokeAsync(StateHasChanged);
+        
+        }
+    }
+
+    private async Task Add(MouseEventArgs e)
+    {
+        Account ac = new Account
+        {
+            Description = "Description",
+            Email = "email",
+            Name = "name"
+        };
+        bool saved = await RestApi.AddAccountAsync(ac);
+        Recs = (await RestApi.GetAccountsAsync()).ToList();
+        if (saved)
+        {
+            toastService.ShowSuccess("Added successfully", "SUCCESS");
+        }
+        else
+        {
+            toastService.ShowError("Error happened when adding", "ERROR");
+        }
+        await LoadAccounts();
+        await InvokeAsync(StateHasChanged);
+
+    }
+
+    private async void Save(MouseEventArgs e, int id)
+    {
+        Account rec = Recs.Find(r => r.Id == id);
+        bool saved = await RestApi.PutAccountAsync(id,rec);
+        Recs = (await RestApi.GetAccountsAsync()).ToList();
+
+        //call js to hide Save button
+        try
+        {
+            await JS.InvokeAsync<string> ("hideSaveCancel", id);
+            if (saved)
+            {
+                await JS.InvokeAsync<string>("hideSaveCancel", id);
+                toastService.ShowSuccess("Updated successfully", "SUCCESS");
+            }
+            else
+            {
+                toastService.ShowError("Error happened when saving", "ERROR");
+            }
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (JSException ex)
+        {
+            throw ex;
+        }
+
+    }
+
+    private async void Cancel(MouseEventArgs e, int id)
+    {
+        Account rec = (await RestApi.GetAccountByIdAsync(id));
+        for (int i = 0; i < Recs.Count; i++)
+        {
+            if (Recs[i].Id == id)
+            {
+               Recs[i] = rec;
+            }
+        }
+
+        try
+        {
+            await JS.InvokeAsync<string>("hideSaveCancel", id);
+        }
+        catch (JSException ex)
+        {
+            throw ex;
+        }
+
+    }
+
+
+}
+
+

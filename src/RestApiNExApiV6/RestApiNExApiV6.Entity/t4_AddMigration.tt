@@ -1,0 +1,27 @@
+<#@ include file="../RestApiNExApiV6.Entity/TemplateCommon.tt"#>
+<#@ assembly name="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\PublicAssemblies\EnvDTE.dll" #>
+
+/// <summary>
+/// Designed by AnaSoft Inc. 2019-2022(c)
+/// http://www.anasoft.net/restapi
+/// 
+/// NOTE:
+/// More about DB migration in .NET
+/// https://docs.microsoft.com/en-us/ef/core/cli/powershell
+/// </summary>
+<#
+	var tc = new TemplateCommon();
+
+	//get VS dte
+	EnvDTE.DTE dte = tc.GetVSEnvDTE();
+	//dte.ExecuteCommand("View.PackageManagerConsole");
+	dte.ExecuteCommand("View.PackageManagerConsole");
+	var migrationCommand =  "add-migration AddNewMigration_" + DateTime.Now.ToString("yyyyMMddHHmmssf");
+	migrationCommand += " -Project 'RestApiNExApiV6.Entity'";                  
+	dte.ExecuteCommand("View.PackageManagerConsole", migrationCommand);
+	#>	
+	//<#= migrationCommand #>
+	// Set API project as default and run Visual Studio to get REST API service info page. 
+	// That will trigger generated migration script to de deployed to the service database
+	<#
+#>

@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - tag=release
+    ports:
+      - 44341:44341
+  web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - tag=release
+

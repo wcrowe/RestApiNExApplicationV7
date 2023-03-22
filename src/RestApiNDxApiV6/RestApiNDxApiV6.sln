@@ -3,17 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNDxApiV6.Api", "RestApiNDxApiV6\RestApiNDxApiV6.Api\RestApiNDxApiV6.Api.csproj", "{8CD907ED-E7EF-4B44-9730-5A1F20831123}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiNDxApiV6.Api", "RestApiNDxApiV6\RestApiNDxApiV6.Api\RestApiNDxApiV6.Api.csproj", "{8CD907ED-E7EF-4B44-9730-5A1F20831123}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNDxApiV6.BlazorServerTestApp", "RestApiNDxApiV6\RestApiNDxApiV6.BlazorServerTestApp\RestApiNDxApiV6.BlazorServerTestApp.csproj", "{A653FBB7-D16B-4621-8B80-E6784CEE6082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiNDxApiV6.BlazorServerTestApp", "RestApiNDxApiV6\RestApiNDxApiV6.BlazorServerTestApp\RestApiNDxApiV6.BlazorServerTestApp.csproj", "{A653FBB7-D16B-4621-8B80-E6784CEE6082}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNDxApiV6.Domain", "RestApiNDxApiV6\RestApiNDxApiV6.Domain\RestApiNDxApiV6.Domain.csproj", "{83BC46CD-BD73-4A02-822A-7C0AA0A8A333}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiNDxApiV6.Domain", "RestApiNDxApiV6\RestApiNDxApiV6.Domain\RestApiNDxApiV6.Domain.csproj", "{83BC46CD-BD73-4A02-822A-7C0AA0A8A333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNDxApiV6.Entity", "RestApiNDxApiV6\RestApiNDxApiV6.Entity\RestApiNDxApiV6.Entity.csproj", "{5395B8E5-1B7B-411D-9384-CF4914C4C02D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiNDxApiV6.Entity", "RestApiNDxApiV6\RestApiNDxApiV6.Entity\RestApiNDxApiV6.Entity.csproj", "{5395B8E5-1B7B-411D-9384-CF4914C4C02D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNDxApiV6.Test", "RestApiNDxApiV6\RestApiNDxApiV6.Test\RestApiNDxApiV6.Test.csproj", "{BAA45834-95DB-4711-90C6-2603924F6347}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApiNDxApiV6.Test", "RestApiNDxApiV6\RestApiNDxApiV6.Test\RestApiNDxApiV6.Test.csproj", "{BAA45834-95DB-4711-90C6-2603924F6347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "RestApiNDxApiV6\IdentityServer\IdentityServer.csproj", "{9D8A0A9E-F209-4601-AEF2-132D0608A869}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "RestApiNDxApiV6\IdentityServer\IdentityServer.csproj", "{9D8A0A9E-F209-4601-AEF2-132D0608A869}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNLxV7.Api", "..\RestApiNLxV7\RestApiNLxV7.Api\RestApiNLxV7.Api.csproj", "{80EAFCEC-E56D-45EF-8D41-D8F5C0A5B245}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNLxV7.Data", "..\RestApiNLxV7\RestApiNLxV7.Data\RestApiNLxV7.Data.csproj", "{BF368630-F496-4AE8-BF5F-CA31608B0E1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApiV6.Api", "..\RestApiNExApiV6\RestApiNExApiV6.Api\RestApiNExApiV6.Api.csproj", "{E333CCB6-F535-42AD-8F5E-DD7101A39094}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApiV6.BlazorServerTestApp", "..\RestApiNExApiV6\RestApiNExApiV6.BlazorServerTestApp\RestApiNExApiV6.BlazorServerTestApp.csproj", "{6815D98F-7A1E-4EA6-8AE0-33191EC30428}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApiV6.Domain", "..\RestApiNExApiV6\RestApiNExApiV6.Domain\RestApiNExApiV6.Domain.csproj", "{786A5328-1D36-4AA9-944B-64E997BABC42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApiV6.Entity", "..\RestApiNExApiV6\RestApiNExApiV6.Entity\RestApiNExApiV6.Entity.csproj", "{8154097A-F48D-4824-BAC8-6A1C1341B032}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiNExApiV6.Test", "..\RestApiNExApiV6\RestApiNExApiV6.Test\RestApiNExApiV6.Test.csproj", "{A11A274E-77D3-4EA1-A2DA-89673C669E54}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "..\RestApiNExApiV6\docker-compose\docker-compose.dcproj", "{E2F15196-66D4-4D55-B369-FF1A482ECCD9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{8A08223D-6F1C-4106-8C6D-283138470CF8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +63,38 @@ Global
 		{9D8A0A9E-F209-4601-AEF2-132D0608A869}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D8A0A9E-F209-4601-AEF2-132D0608A869}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D8A0A9E-F209-4601-AEF2-132D0608A869}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80EAFCEC-E56D-45EF-8D41-D8F5C0A5B245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80EAFCEC-E56D-45EF-8D41-D8F5C0A5B245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80EAFCEC-E56D-45EF-8D41-D8F5C0A5B245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80EAFCEC-E56D-45EF-8D41-D8F5C0A5B245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF368630-F496-4AE8-BF5F-CA31608B0E1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF368630-F496-4AE8-BF5F-CA31608B0E1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF368630-F496-4AE8-BF5F-CA31608B0E1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF368630-F496-4AE8-BF5F-CA31608B0E1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E333CCB6-F535-42AD-8F5E-DD7101A39094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E333CCB6-F535-42AD-8F5E-DD7101A39094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E333CCB6-F535-42AD-8F5E-DD7101A39094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E333CCB6-F535-42AD-8F5E-DD7101A39094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6815D98F-7A1E-4EA6-8AE0-33191EC30428}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6815D98F-7A1E-4EA6-8AE0-33191EC30428}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6815D98F-7A1E-4EA6-8AE0-33191EC30428}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6815D98F-7A1E-4EA6-8AE0-33191EC30428}.Release|Any CPU.Build.0 = Release|Any CPU
+		{786A5328-1D36-4AA9-944B-64E997BABC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{786A5328-1D36-4AA9-944B-64E997BABC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{786A5328-1D36-4AA9-944B-64E997BABC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{786A5328-1D36-4AA9-944B-64E997BABC42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8154097A-F48D-4824-BAC8-6A1C1341B032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8154097A-F48D-4824-BAC8-6A1C1341B032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8154097A-F48D-4824-BAC8-6A1C1341B032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8154097A-F48D-4824-BAC8-6A1C1341B032}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A11A274E-77D3-4EA1-A2DA-89673C669E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11A274E-77D3-4EA1-A2DA-89673C669E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11A274E-77D3-4EA1-A2DA-89673C669E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11A274E-77D3-4EA1-A2DA-89673C669E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F15196-66D4-4D55-B369-FF1A482ECCD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

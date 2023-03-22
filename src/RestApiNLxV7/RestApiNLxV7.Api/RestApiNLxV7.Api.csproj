@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7</TargetFramework>
+    <UserSecretsId>b3321e52-4d13-4acd-b7e0-ce4fb33b9908</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RestApiNLxV7.Data\RestApiNLxV7.Data.csproj" />
+  </ItemGroup>
+
+</Project>
